@@ -6,6 +6,7 @@ export default function Contatos() {
     <div className="row h-100">
       <ListaContatos />
       <DetalhesContato />
+
     </div>
   );
 }
