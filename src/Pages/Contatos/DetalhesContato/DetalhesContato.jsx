@@ -1,4 +1,17 @@
+import { useContext } from "react";
+import { ContatosContext } from "../Contatos";
+
 export default function DetalhesContato() {
+  const { contatoSelecionado } = useContext(ContatosContext);
+
+  if (!contatoSelecionado) {
+    return (
+      <div className="col-md-3 border border-dark py-4 bg-light h-100 d-flex flex-column">
+        <p>Selecione um contato</p>
+      </div>
+    );
+  }
+
   return (
     <div className="col-md-3 border border-dark py-4 bg-light h-100 d-flex flex-column">
       <div
@@ -10,16 +23,16 @@ export default function DetalhesContato() {
         }}
       >
         <img
-          src="https://via.placeholder.com/150"
+          src={contatoSelecionado.avatar || "https://via.placeholder.com/150"}
           alt="Foto do contato"
           style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }}
         />
       </div>
 
       <div style={{ flexGrow: 1, overflowY: 'auto', textAlign: 'left' }}>
-        <h5>Nome do Contato</h5>
-        <p>Email: contato@example.com</p>
-        <p>Telefone: (11) 99999-9999</p>
+        <h5>{contatoSelecionado.displayName}</h5>
+        <p>Email: {contatoSelecionado.email}</p>
+        <p>Telefone: {contatoSelecionado.telefone}</p>
       </div>
     </div>
   );
