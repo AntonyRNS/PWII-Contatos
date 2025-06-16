@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ContatosContext } from "../Contatos";
 
 export default function DetalhesContato() {
-  const { contatoSelecionado } = useContext(ContatosContext);
+  const { contatoSelecionado, setContatoSelecionado, contatos, setContatos } = useContext(ContatosContext);
 
   if (!contatoSelecionado) {
     return (
@@ -10,6 +10,12 @@ export default function DetalhesContato() {
         <p>Selecione um contato</p>
       </div>
     );
+  }
+  function removerContato(){
+    const contatosFiltrados = contatos.filter(contato => contato.id !== contatoSelecionado.id);
+    setContatos([...contatosFiltrados]);
+    setContatoSelecionado(null)
+    
   }
 
   return (
@@ -33,6 +39,9 @@ export default function DetalhesContato() {
         <h5>{contatoSelecionado.displayName}</h5>
         <p>Email: {contatoSelecionado.email}</p>
         <p>Telefone: {contatoSelecionado.telefone}</p>
+      </div>
+      <div>
+        <button onClick={removerContato}>Remover Contato</button>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ function ContatosProvider({ children }) {
 
   useEffect(() => {
     async function buscarContatos() {
-      const res = await fetch("https://run.mocky.io/v3/4cd55304-07ee-470a-93b1-d8100d1d29f2");
+      const res = await fetch("https://run.mocky.io/v3/f6b584b6-06b1-4c7b-a803-573b5541c631");
       const json = await res.json();
       setContatos(json);
     }
@@ -19,7 +19,7 @@ function ContatosProvider({ children }) {
 
   return (
     <ContatosContext.Provider
-      value={{ contatos, contatoSelecionado, setContatoSelecionado }}
+      value={{ contatos, contatoSelecionado, setContatoSelecionado, setContatos }}
     >
       {children}
     </ContatosContext.Provider>
