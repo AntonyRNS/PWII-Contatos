@@ -1,35 +1,77 @@
-import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from '../Components/Header/Header';
-import Footer from '../Components/Footer/Footer';
-import Sidebar from '../Components/Sidebar/Sidebar';
-import Home from '../Pages/Home/Home';
-import Contatos from '../Pages/Contatos/Contatos';
-import Sobre from '../Pages/Sobre/Sobre';
+import "./App.css";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Header from "../Components/Header/Header";
+import Footer from "../Components/Footer/Footer";
+import Sidebar from "../Components/Sidebar/Sidebar";
+import Home from "../Pages/Home/Home";
+import Contatos from "../Pages/Contatos/Contatos";
+import Sobre from "../Pages/Sobre/Sobre";
+import Login from "../Pages/Login/Login";
+import ProtectedRoute from '../Context/ProtectedRoute'
+import { AuthProvider, useAuth } from "../Context/AuthContext";
 
-function App() {
+function Layout({ children }) {
+  const { user } = useAuth();
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Header /> {/** HEADER */}
-        <div className="container-fluid">
-          <div className="row" style={{ minHeight: '80vh' }}>
+    <>
+      {user && <Header />}
+      <div className="container-fluid">
+        <div className="row" style={{ minHeight: "80vh" }}>
+          {user && (
             <div className="col-md-3 col-lg-2 bg-light border-end p-3">
-              <Sidebar /> {/** SIDEBAR */}
+              <Sidebar />
             </div>
-            <div className="col-md-9 col-lg-10 p-4">
-              <Routes>
-                <Route path="/home" element={<Home />} />
-                <Route path="/contatos" element={<Contatos />} />
-                <Route path="/sobre" element={<Sobre />} />
-              </Routes>
-            </div>
+          )}
+          <div className={user ? "col-md-9 col-lg-10 p-4" : "col-12 p-4"}>
+            {children}
           </div>
         </div>
-        <Footer /> {/** FOOTER */}
-      </BrowserRouter>
-    </div>
+      </div>
+      {user && <Footer />}
+    </>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/contatos"
+              element={
+                <ProtectedRoute>
+                  <Contatos />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/sobre"
+              element={
+                <ProtectedRoute>
+                  <Sobre />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/"
+              element={<Navigate to="/home" />}
+            />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}

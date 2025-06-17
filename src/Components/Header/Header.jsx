@@ -1,10 +1,14 @@
+import { useAuth } from "../../Context/AuthContext";
+
 export default function Header() {
+  const { logout } = useAuth();
+
   return (
-    <div
-      className="border border-dark py-4 text-center"
-      style={{ backgroundColor: '#981A12' }}
-    >
-      <p className="m-0 text-white">Esse é o header</p>
-    </div>
+    <header className="d-flex justify-content-between p-3 border-bottom">
+      <h1>Gerenciador de Contatos</h1>
+      <button className="btn btn-danger" onClick={logout}>
+        Sair
+      </button>
+    </header>
   );
 }
