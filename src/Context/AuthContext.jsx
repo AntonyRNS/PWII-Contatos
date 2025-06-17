@@ -5,7 +5,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([
-    { username: "admin", password: "123" } // usuário padrão
+    { username: "admin", password: "123" }
   ]);
 
   const login = (username, password) => {
