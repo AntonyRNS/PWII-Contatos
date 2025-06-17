@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import ListaContatos from "./ListaContatos/ListaContatos";
 import DetalhesContato from "./DetalhesContato/DetalhesContato";
+import axios from 'axios';
 export const ContatosContext = createContext();
 function ContatosProvider({ children }) {
   const [contatos, setContatos] = useState([]);
@@ -14,6 +15,11 @@ function ContatosProvider({ children }) {
     }
     buscarContatos()
   }, []);
+  
+  // useEffect(()=>{
+  //   axios.get('https://run.mocky.io/v3/f6b584b6-06b1-4c7b-a803-573b5541c631')
+  //   .then(response => setContatos(response.data))
+  // })
 
 
 

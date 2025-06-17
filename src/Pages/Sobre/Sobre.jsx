@@ -1,5 +1,5 @@
 export default function Sobre(){
     return(
-        <p>Essa é a página sobre</p>
+        <a href="https://github.com/AntonyRNS">Todos os direitos</a>
     )
 }
