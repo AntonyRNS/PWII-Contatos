@@ -9,6 +9,7 @@ import Sobre from "../Pages/Sobre/Sobre";
 import Login from "../Pages/Login/Login";
 import ProtectedRoute from '../Context/ProtectedRoute'
 import { AuthProvider, useAuth } from "../Context/AuthContext";
+import Register from "../Pages/Register/Register";
 
 function Layout({ children }) {
   const { user } = useAuth();
@@ -68,7 +69,9 @@ export default function App() {
               path="/"
               element={<Navigate to="/home" />}
             />
+            <Route path="/register" element={<Register />} />
             <Route path="*" element={<Navigate to="/" />} />
+
           </Routes>
         </Layout>
       </BrowserRouter>
